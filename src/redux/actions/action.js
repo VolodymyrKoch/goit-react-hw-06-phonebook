@@ -1,4 +1,9 @@
-import { ADD_CONTACT, REMOVE_CONTACT } from '../actionTypes.js';
+import {
+  ADD_CONTACT,
+  REMOVE_CONTACT,
+  CHANGE_FILTER,
+  ERROR_MESSAGE,
+} from '../actionTypes.js';
 
 // const {}=types;
 
@@ -11,5 +16,14 @@ const removeContact = id => ({
   type: REMOVE_CONTACT,
   payload: id,
 });
+const changeFilter = filter => ({
+  type: CHANGE_FILTER,
+  payload: filter,
+});
+const erroMasage = payload => ({
+  type: ERROR_MESSAGE,
+  payload: payload,
+});
 
-export default { addContact, removeContact };
+export { addContact, removeContact, changeFilter, erroMasage };
+// export default { addContact, removeContact, changeFilter };

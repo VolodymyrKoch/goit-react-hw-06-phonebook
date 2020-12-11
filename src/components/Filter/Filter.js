@@ -4,8 +4,10 @@ import classes from './Filter.module.css';
 import { CSSTransition } from 'react-transition-group';
 import '../../components/anime.css';
 import '../anime.css';
+import { connect } from 'react-redux';
+import { changeFilter } from '../../redux/actions/action.js';
 
-export default function Filter({ filter, filterRender, visibleFilter }) {
+function Filter({ filter, filterRender, visibleFilter }) {
   console.log(visibleFilter);
   return (
     <CSSTransition
@@ -33,3 +35,15 @@ Filter.propTypes = {
   filter: PropTypes.string.isRequired,
   filterRender: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = {
+  filterRender: changeFilter,
+};
+const mapStateToProps = state => {
+  // console.log(state.contacts.items);
+  return {
+    filter: state.contacts.filter,
+    visibleFilter: state.contacts.items.length > 1,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

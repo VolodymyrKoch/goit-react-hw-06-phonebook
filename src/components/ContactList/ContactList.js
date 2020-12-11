@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 // import classes from './ContactList.module.css';
 import './ContactList.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
 import '../../components/anime.css';
+import { removeContact } from '../../redux/actions/action.js';
 
 const ContactList = function ({ array, deleteItem }) {
   // console.log(array);
@@ -25,7 +27,6 @@ const ContactList = function ({ array, deleteItem }) {
     </>
   );
 };
-export default ContactList;
 
 ContactList.propTypes = {
   array: PropTypes.arrayOf(
@@ -37,3 +38,20 @@ ContactList.propTypes = {
   ),
   deleteItem: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = {
+  deleteItem: removeContact,
+};
+
+const handleFilter = (contacts, filter) => {
+  return contacts.filter(contactItem =>
+    contactItem.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+};
+
+const mapStateToProps = state => {
+  // console.log(state.contacts.items);
+  return { array: handleFilter(state.contacts.items, state.contacts.filter) };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

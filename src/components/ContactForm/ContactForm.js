@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import classes from './ContactForm.module.css';
 import { CSSTransition } from 'react-transition-group';
 import '../../components/anime.css';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
+import { addContact, erroMasage } from '../../redux/actions/action.js';
+import { connect } from 'react-redux';
+
 //
 
 const INITIAL_STATE = {
-  id: '',
   name: '',
   number: '',
 };
@@ -18,13 +20,26 @@ class ContactForm extends Component {
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({
-      id: uuidv4(),
+      // id: uuidv4(),
       [name]: value,
     });
   };
   handleSubmit = e => {
     e.preventDefault();
-    this.props.addContacts({ ...this.state });
+    // this.props.addContact({ ...this.state });
+    if (this.props.contacts.find(item => item.name === this.state.name)) {
+      this.props.erroMasage('Is already in contacts.');
+      setTimeout(() => {
+        this.props.erroMasage('');
+      }, 1500);
+    } else {
+      this.props.addContact(this.state);
+
+      // this.setState(prevState => {
+      //   const updateState = [...prevState.contacts, el];
+      //   return { contacts: updateState, erroMasage: '' };
+      // });
+    }
     this.setState({ name: '', number: '' }); //1 варіант очищаю input після submit(відправки)
     // this.setState(INITIAL_STATE);  //2 варіант очищаю input після submit(відправки)
   };
@@ -76,18 +91,19 @@ class ContactForm extends Component {
   }
 }
 
-// const mapStateToProps = (state, props) => ({
-//   contacts: state.contacts,
-// });
+const mapStateToProps = (state, props) => ({
+  contacts: state.contacts.items,
+});
 
-// // const mapDispatchToProps = dispatch => ({
-// //   addContact: contact => {
-// //     dispatch(addContact(contact));
-// //   },
-// // });
-// const mapDispatchToProps ={
-//   addContact,
-// }
+// const mapDispatchToProps = dispatch => ({
+//   addContact: contact => {
+//     dispatch(addContact(contact));
+//   },
+// });
+const mapDispatchToProps = {
+  addContact,
+  erroMasage,
+};
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
-export default ContactForm;
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
