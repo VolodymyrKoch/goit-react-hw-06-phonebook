@@ -1,0 +1,23 @@
+.title {
+  color: rgb(99, 38, 2);
+}
+
+/* .filterTransit-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 250ms linear;
+}
+.filterTransit-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.filterTransit-exit {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 250ms linear;
+}
+.filterTransit-exit-active {
+  transform: translateX(-50%);
+  opacity: 0;
+} */
