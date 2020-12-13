@@ -11,4 +11,3 @@ const mapStateToProps = (state, props) => ({
   erroMasage: state.contacts.erroMasage,
 });
 export default connect(mapStateToProps)(ErrorMassage);
-// ErrorMassage.defaultProps = { erroMasage: 'Is already in contacts.' };

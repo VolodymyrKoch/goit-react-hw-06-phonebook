@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { v4 as uuidv4 } from 'uuid';
-// import classes from './ContactList.module.css';
 import './ContactList.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -9,7 +7,6 @@ import '../../components/anime.css';
 import { removeContact } from '../../redux/actions/action.js';
 
 const ContactList = function ({ array, deleteItem }) {
-  // console.log(array);
   return (
     <>
       <TransitionGroup component="ul" className="contactList">
@@ -27,7 +24,6 @@ const ContactList = function ({ array, deleteItem }) {
     </>
   );
 };
-
 ContactList.propTypes = {
   array: PropTypes.arrayOf(
     PropTypes.exact({
@@ -38,20 +34,36 @@ ContactList.propTypes = {
   ),
   deleteItem: PropTypes.func.isRequired,
 };
-
 const mapDispatchToProps = {
   deleteItem: removeContact,
 };
-
+// ---------------------1-version-filtering-----
 const handleFilter = (contacts, filter) => {
   return contacts.filter(contactItem =>
     contactItem.name.toLowerCase().includes(filter.toLowerCase()),
   );
 };
-
 const mapStateToProps = state => {
   // console.log(state.contacts.items);
   return { array: handleFilter(state.contacts.items, state.contacts.filter) };
 };
-
+// ----------------------2-version-filtering- з диструктуризацією------------
+// const mapStateToProps = state => {
+//     const { items, filter } = state.contacts;
+//   const handleFilter = items.filter(contact =>
+//     contact.name.toLowerCase().includes(filter.toLowerCase()),
+//   );
+//   return {
+//     array: handleFilter,
+//   };
+// };
+// -----------------------3-version-filtering-без диструктуризації--------
+// const mapStateToProps = state => {
+//   return {
+//     array: state.contacts.items.filter(contact =>
+//       contact.name.toLowerCase().includes(state.contacts.filter.toLowerCase()),
+//     ),
+//   };
+// };
+// ---------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

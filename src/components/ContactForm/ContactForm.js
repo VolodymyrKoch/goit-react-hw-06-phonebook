@@ -27,6 +27,7 @@ class ContactForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     // this.props.addContact({ ...this.state });
+    console.log(this.props.contacts);
     if (this.props.contacts.find(item => item.name === this.state.name)) {
       this.props.erroMasage('Is already in contacts.');
       setTimeout(() => {
@@ -34,11 +35,6 @@ class ContactForm extends Component {
       }, 1500);
     } else {
       this.props.addContact(this.state);
-
-      // this.setState(prevState => {
-      //   const updateState = [...prevState.contacts, el];
-      //   return { contacts: updateState, erroMasage: '' };
-      // });
     }
     this.setState({ name: '', number: '' }); //1 варіант очищаю input після submit(відправки)
     // this.setState(INITIAL_STATE);  //2 варіант очищаю input після submit(відправки)
@@ -105,5 +101,4 @@ const mapDispatchToProps = {
   erroMasage,
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

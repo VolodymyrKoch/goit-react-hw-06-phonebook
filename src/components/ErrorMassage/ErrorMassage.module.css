@@ -31,3 +31,23 @@
   transform: translateX(50%);
   opacity: 0;
 }
+/*
+.errorAnimation-enter {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 250ms linear;
+}
+.errorAnimation-enterActive {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.errorAnimation-exit {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 250ms linear;
+}
+.errorAnimation-exitActive {
+  transform: translateX(50%);
+  opacity: 0;
+} */

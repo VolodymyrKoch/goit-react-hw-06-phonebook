@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { changeFilter } from '../../redux/actions/action.js';
 
 function Filter({ filter, filterRender, visibleFilter }) {
-  console.log(visibleFilter);
+  // console.log(visibleFilter);
   return (
     <CSSTransition
       in={visibleFilter}
@@ -41,9 +41,10 @@ const mapDispatchToProps = {
 };
 const mapStateToProps = state => {
   // console.log(state.contacts.items);
+  const { filter, items } = state.contacts;
   return {
-    filter: state.contacts.filter,
-    visibleFilter: state.contacts.items.length > 1,
+    filter: filter,
+    visibleFilter: items.length > 1,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
